@@ -6,8 +6,16 @@ setopt PROMPT_SUBST
 
 set_prompt() {
 
+	# Virtual Environment
+	if [ '$VIRTUAL_ENV' != "" ]
+	then
+		PS1="(`basename \"$VIRTUAL_ENV\"`)$PS1"
+	else
+		PS1=""
+	fi
+	
 	# [
-	PS1="%{$fg[white]%}[%{$reset_color%}"
+	PS1+="%{$fg[white]%}[%{$reset_color%}"
 
 	# Path: http://stevelosh.com/blog/2010/02/my-extravagant-zsh-prompt/
 	PS1+="%{$fg_bold[cyan]%}${PWD/#$HOME/~}%{$reset_color%}"
@@ -19,9 +27,10 @@ set_prompt() {
 	if git rev-parse --is-inside-work-tree 2> /dev/null | grep -q 'true' ; then
 		PS1+=', '
 		PS1+="%{$fg[blue]%}$(git rev-parse --abbrev-ref HEAD 2> /dev/null)%{$reset_color%}"
-		if [ $(git status --short | wc -l) -gt 0 ]; then 
-			PS1+="%{$fg[red]%}+$(git status --short | wc -l | awk '{$1=$1};1')%{$reset_color%}"
-		fi
+		# Disabling because of long delay inside large git repos
+		# if [ $(git status --short | wc -l) -gt 0 ]; then 
+		# 	PS1+="%{$fg[red]%}+$(git status --short | wc -l | awk '{$1=$1};1')%{$reset_color%}"
+		# fi
 	fi
 
 
