@@ -6,11 +6,19 @@ setopt PROMPT_SUBST
 
 set_prompt() {
 
+	PS1=""
+
+    # Indicate Running Inside Docker
+	if [ -f /.dockerenv ]; then
+		PS1+="Docker: "
+	else
+		PS1+=""
+	fi
 	# Virtual Environment
 	if [[ -z "$VIRTUAL_ENV" ]]; then
-		PS1=""
+		PS1+=""
 	else
-		PS1="(`basename \"$VIRTUAL_ENV\"`)"
+		PS1+="(`basename \"$VIRTUAL_ENV\"`)"
 	fi
 	
 	# [
