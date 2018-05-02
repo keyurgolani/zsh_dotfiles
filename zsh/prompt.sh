@@ -7,11 +7,10 @@ setopt PROMPT_SUBST
 set_prompt() {
 
 	# Virtual Environment
-	if [ '$VIRTUAL_ENV' != "" ]
-	then
-		PS1="(`basename \"$VIRTUAL_ENV\"`)$PS1"
-	else
+	if [[ -z "$VIRTUAL_ENV" ]]; then
 		PS1=""
+	else
+		PS1="(`basename \"$VIRTUAL_ENV\"`)"
 	fi
 	
 	# [
