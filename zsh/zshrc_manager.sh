@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 time_out () { perl -e 'alarm shift; exec @ARGV' "$@"; }
 
 # Run tmux if exists
@@ -15,3 +16,4 @@ fi
 source ~/dotfiles/zsh/zshrc.sh
 source ~/dotfiles/zsh/zsh_functions.sh
 source ~/dotfiles/zsh/zsh_exports.sh
+source ~/dotfiles/zsh/zsh_aliases.sh
